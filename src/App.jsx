@@ -2,19 +2,27 @@ import React from "react";
 import ScoreBar from "./screens/ScoreBar";
 import Positions from "./screens/Positions";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { HashRouter } from "react-router-dom";
+ 
+
+
 import { BrowserRouter, Router, Route, Routes } from "react-router-dom";
 
 import "./index.css";
 
 const App = () => {
     return (
-      <BrowserRouter>
+      <HashRouter>
       <Routes>
-        <Route path="/" element={<ScoreBar/>}/>
-        <Route path="/player" element={<Positions/>}/>
+        <Route path="/scorebar/:matchId" element={<ScoreBar/>}/>
+        <Route path="/player/:matchId" element={<Positions/>}/>
 
       </Routes>
-      </BrowserRouter>
+      </HashRouter>
+
+
+
+
         // <div className="position-relative">
         //      <div className="position-fixed top-0 end-40 mt-3   ">
         //         <Positions />

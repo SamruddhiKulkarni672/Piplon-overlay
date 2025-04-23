@@ -300,7 +300,7 @@ const Bowler = ({}) => {
                 <RankList
                     playerList={rankWiseBowlerList}
                     toggleOption={true}
-                    title="Rank wise batters"
+                    title="Rank wise batters list"
                     RoleIcon={BatSvg}
                     roleHeader={'Bowler'}
                 />

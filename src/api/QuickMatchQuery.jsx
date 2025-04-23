@@ -1,4 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+
+ 
 // http://3.15.208.183
 export const QuickMatchApi = createApi({
   reducerPath: 'QuickMatchApi',
@@ -7,7 +9,9 @@ export const QuickMatchApi = createApi({
     
     prepareHeaders: (headers, {getState}) => {
       // const token = getState().access?.access_token;
-      const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNTVlNTFkYy1iZDFmLTRlYzEtYWRiZi01MzlmMGY2M2Y0MjAiLCJleHAiOjE3NDU1OTE3MjF9.KhjbZWpICkwED85VqMTRN5KDDpjnJSdIx43ItnwQMbM"
+      const token = import.meta.env.VITE_JWT ;
+
+      // const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNTVlNTFkYy1iZDFmLTRlYzEtYWRiZi01MzlmMGY2M2Y0MjAiLCJleHAiOjE3NDU1OTE3MjF9.KhjbZWpICkwED85VqMTRN5KDDpjnJSdIx43ItnwQMbM"
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }

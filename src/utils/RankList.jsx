@@ -43,7 +43,7 @@ const PlayerItem = ({ bowler, expanded, index }) => {
 
 
 
-const RankList = ({ playerList, toggleOption, title, RoleIcon }) => {
+const RankList = ({ playerList, toggleOption, title, RoleIcon,roleHeader }) => {
   const [expanded, setExpanded] = useState(true);
 
   if (!playerList) {
@@ -66,7 +66,7 @@ const RankList = ({ playerList, toggleOption, title, RoleIcon }) => {
       <div className="bg-indigo-600/50 text-white   font-bold flex justify-between px-3 py-2 rounded-t-lg text-base">
         <div className="flex gap-10 text-base">
           <span className='text-base'>Rank</span>
-          <span>Players</span>
+          <span> {roleHeader}</span>
         </div>
         <span>Current Pts & Goal</span>
       </div>

@@ -9,6 +9,7 @@ import { HashRouter } from "react-router-dom";
 import { BrowserRouter, Router, Route, Routes } from "react-router-dom";
 
 import "./index.css";
+import Bowler from "./screens/Bowler";
 
 const App = () => {
     return (
@@ -16,6 +17,8 @@ const App = () => {
       <Routes>
         <Route path="/scorebar/:matchId" element={<ScoreBar/>}/>
         <Route path="/player/:matchId" element={<Positions/>}/>
+        <Route path="/bowler/:matchId" element={<Bowler/>}/>
+
 
       </Routes>
       </HashRouter>

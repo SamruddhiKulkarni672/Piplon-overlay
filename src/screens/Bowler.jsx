@@ -63,7 +63,7 @@
 // export default Positions;
 
 import React, { useMemo, useState, useEffect } from "react";
-import RankList from "../utils/RankList";
+import RankList from "../utils/RankList.jsx";
 import BatSvg from "../assets/Bat.jsx";
 import { useParams } from "react-router-dom";
 
@@ -132,7 +132,7 @@ const dummyList = [
     },
 ];
 
-const Positions = ({}) => {
+const Bowler = ({}) => {
     //   const rankWiseBatsmenList = useMemo(() => (
     //     calCulatedRankPlayers(battingSideTokenWiseWithPointsList)
     //   ), [battingSideTokenWiseWithPointsList]);
@@ -270,17 +270,16 @@ const Positions = ({}) => {
     }, [liveScore, battinSideRank, bowlingSideRank, totalOvers]);
 
     return (
-        <div className="min-h-screen   text-white p-6 pt-20">
-            <div className="max-w-lg">
-                <RankList
-                    playerList={rankWiseBatsmenList}
-                    toggleOption={true}
-                    title="Rank wise batters"
-                    RoleIcon={BatSvg}
-                    roleHeader={'Batter'}
-                />
-            </div>
-        </div>
+        // <div className="min-h-screen   text-white p-6">
+        //     <div className="max-w-lg">
+        //         <RankList
+        //             playerList={rankWiseBatsmenList}
+        //             toggleOption={true}
+        //             title="Rank wise batters"
+        //             RoleIcon={BatSvg}
+        //         />
+        //     </div>
+        // </div>
 
         //     <div className="min-h-screen flex justify-end text-white p-6">
         //     <div className="w-[500px]">
@@ -296,19 +295,20 @@ const Positions = ({}) => {
 
 
 
-        // <div className="min-h-screen flex justify-end text-white p-6">
-        //     <div className="max-w-lg w-full">
-        //         <RankList
-        //             playerList={dummyList}
-        //             toggleOption={true}
-        //             title="Rank wise batters"
-        //             RoleIcon={BatSvg}
-        //         />
-        //     </div>
-        // </div>
+        <div className="min-h-screen flex justify-end text-white p-6 pt-20">
+            <div className="max-w-lg w-full">
+                <RankList
+                    playerList={rankWiseBowlerList}
+                    toggleOption={true}
+                    title="Rank wise batters"
+                    RoleIcon={BatSvg}
+                    roleHeader={'Bowler'}
+                />
+            </div>
+        </div>
 
         
     );
 };
 
-export default Positions;
+export default Bowler;

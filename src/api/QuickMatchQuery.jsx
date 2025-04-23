@@ -11,8 +11,7 @@ export const QuickMatchApi = createApi({
       // const token = getState().access?.access_token;
       const token = import.meta.env.VITE_JWT ;
 
-      // const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNTVlNTFkYy1iZDFmLTRlYzEtYWRiZi01MzlmMGY2M2Y0MjAiLCJleHAiOjE3NDU1OTE3MjF9.KhjbZWpICkwED85VqMTRN5KDDpjnJSdIx43ItnwQMbM"
-      if (token) {
+       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
       return headers;

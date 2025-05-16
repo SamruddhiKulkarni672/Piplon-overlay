@@ -1,23 +1,24 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const WebSocketApi = createApi({
-  reducerPath: 'webSocketApi',
+  reducerPath: "webSocketApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://3.15.208.183/v2',
+    baseUrl: "http://3.15.208.183/v2",
     prepareHeaders: (headers, { getState }) => {
       // const token = getState().access?.access_token;
-      const token = import.meta.env.VITE_JWT ;
+      //const token = import.meta.env.VITE_JWT ;
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzYWIwNDQ5MC0wN2JkLTQzYTItYmMyNi1mZGRkMTMxZTc5ZTEiLCJleHAiOjE3NDc4MDgxMDZ9.uti_jnm0V9upxEsZikRBNMhE5fK-_xeiFc0fE9sG9j0";
 
- 
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set("Authorization", `Bearer ${token}`);
       }
       return headers;
     },
   }),
   endpoints: (builder) => ({
     getLiveScore: builder.query({
-      queryFn: () => ({ data: 'loading' }),
+      queryFn: () => ({ data: "loading" }),
       keepUnusedDataFor: 60,
       async onCacheEntryAdded(
         matchId,
@@ -26,7 +27,8 @@ export const WebSocketApi = createApi({
         // const token = getState().access?.access_token;
         // if (!token) return;
 
-        const token = import.meta.env.VITE_JWT
+        const token =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzYWIwNDQ5MC0wN2JkLTQzYTItYmMyNi1mZGRkMTMxZTc5ZTEiLCJleHAiOjE3NDc4MDgxMDZ9.uti_jnm0V9upxEsZikRBNMhE5fK-_xeiFc0fE9sG9j0";
 
         let ws;
         let manuallyClosed = false;
@@ -44,26 +46,26 @@ export const WebSocketApi = createApi({
           );
 
           ws.onopen = async () => {
-            console.log('WebSocket Connected');
+            console.log("WebSocket Connected");
             reconnectDelay = 3000;
 
             try {
               const response = await fetch(
                 `http://3.15.208.183/v2/send-initial-data/${matchId}`,
                 {
-                  method: 'GET',
+                  method: "GET",
                   headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                   },
                 }
               );
 
               if (!response.ok) {
-                console.error('Initial data fetch failed');
+                console.error("Initial data fetch failed");
               }
             } catch (err) {
-              console.error('Initial data fetch error:', err);
+              console.error("Initial data fetch error:", err);
             }
           };
 
@@ -72,16 +74,16 @@ export const WebSocketApi = createApi({
               const data = JSON.parse(event.data);
               updateCachedData(() => data);
             } catch (err) {
-              console.error('WebSocket message parse error:', err);
+              console.error("WebSocket message parse error:", err);
             }
           };
 
           ws.onerror = (err) => {
-            console.error('WebSocket Error:', err.message);
+            console.error("WebSocket Error:", err.message);
           };
 
           ws.onclose = () => {
-            console.warn('WebSocket Disconnected');
+            console.warn("WebSocket Disconnected");
             if (!manuallyClosed && isConnected) {
               scheduleReconnect();
             }
@@ -110,7 +112,7 @@ export const WebSocketApi = createApi({
             !manuallyClosed &&
             (!ws || ws.readyState === WebSocket.CLOSED)
           ) {
-            console.log('Network reconnected');
+            console.log("Network reconnected");
             reconnectDelay = 3000;
             connectWebSocket();
           }
@@ -118,11 +120,11 @@ export const WebSocketApi = createApi({
 
         const handleOffline = () => {
           isConnected = false;
-          console.log('Network went offline');
+          console.log("Network went offline");
         };
 
-        window.addEventListener('online', handleOnline);
-        window.addEventListener('offline', handleOffline);
+        window.addEventListener("online", handleOnline);
+        window.addEventListener("offline", handleOffline);
 
         connectWebSocket();
 
@@ -132,10 +134,10 @@ export const WebSocketApi = createApi({
         if (ws) ws.close();
         if (reconnectTimeout) clearTimeout(reconnectTimeout);
 
-        window.removeEventListener('online', handleOnline);
-        window.removeEventListener('offline', handleOffline);
+        window.removeEventListener("online", handleOnline);
+        window.removeEventListener("offline", handleOffline);
 
-        console.log('WebSocket cleanup complete');
+        console.log("WebSocket cleanup complete");
       },
     }),
   }),

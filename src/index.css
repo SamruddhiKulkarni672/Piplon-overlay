@@ -1,13 +1,5 @@
 /* src/index.css */
- 
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
- 
-body {
-  
-  background: rgba(0, 0, 0, 0);}
-
- 

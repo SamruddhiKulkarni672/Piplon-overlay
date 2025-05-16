@@ -71,244 +71,244 @@ import Test from "../utils/RankList.jsx";
 import { useGetLiveScoreQuery } from "../api/WebSocketQuery.jsx";
 import { useViewerScoreCardQuery } from "../api/QuickMatchQuery.jsx";
 import {
-    calculatePlayerRolesFromMatrix,
-    calCulatedRankPlayers,
+  calculatePlayerRolesFromMatrix,
+  calCulatedRankPlayers,
 } from "../utils/calculatePlayerFormats.jsx";
 
 const dummyList = [
-    {
-        playerKey: "1",
-        full_name: "John Doe",
-        profile_image: "https://example.com/avatar1.webp", // Optional: You can replace it with your AvatarImg
-        total_pts: 150,
-        role: "Batter",
-        batting_avg: 45.6, // Additional fields to simulate a more realistic scenario
-        strike_rate: 130.5,
-    },
-    {
-        playerKey: "2",
-        full_name: "James Smith",
-        profile_image: "https://example.com/avatar2.webp",
-        total_pts: 120,
-        role: "Batter",
-        batting_avg: 38.2,
-        strike_rate: 125.3,
-    },
-    {
-        playerKey: "3",
-        full_name: "Robert Johnson",
-        profile_image: "https://example.com/avatar3.webp",
-        total_pts: 100,
-        role: "Batter",
-        batting_avg: 42.0,
-        strike_rate: 128.7,
-    },
-    {
-        playerKey: "4",
-        full_name: "Michael Brown",
-        profile_image: "https://example.com/avatar4.webp",
-        total_pts: 90,
-        role: "Batter",
-        batting_avg: 40.5,
-        strike_rate: 122.4,
-    },
-    {
-        playerKey: "5",
-        full_name: "William Taylor",
-        profile_image: "https://example.com/avatar5.webp",
-        total_pts: 80,
-        role: "Batter",
-        batting_avg: 37.1,
-        strike_rate: 118.2,
-    },
-    {
-        playerKey: "6",
-        full_name: "David White",
-        profile_image: "https://example.com/avatar6.webp",
-        total_pts: 70,
-        role: "RR",
-        batting_avg: 41.3,
-        strike_rate: 130.0,
-    },
+  {
+    playerKey: "1",
+    full_name: "John Doe",
+    profile_image: "https://example.com/avatar1.webp", // Optional: You can replace it with your AvatarImg
+    total_pts: 150,
+    role: "Batter",
+    batting_avg: 45.6, // Additional fields to simulate a more realistic scenario
+    strike_rate: 130.5,
+  },
+  {
+    playerKey: "2",
+    full_name: "James Smith",
+    profile_image: "https://example.com/avatar2.webp",
+    total_pts: 120,
+    role: "Batter",
+    batting_avg: 38.2,
+    strike_rate: 125.3,
+  },
+  {
+    playerKey: "3",
+    full_name: "Robert Johnson",
+    profile_image: "https://example.com/avatar3.webp",
+    total_pts: 100,
+    role: "Batter",
+    batting_avg: 42.0,
+    strike_rate: 128.7,
+  },
+  {
+    playerKey: "4",
+    full_name: "Michael Brown",
+    profile_image: "https://example.com/avatar4.webp",
+    total_pts: 90,
+    role: "Batter",
+    batting_avg: 40.5,
+    strike_rate: 122.4,
+  },
+  {
+    playerKey: "5",
+    full_name: "William Taylor",
+    profile_image: "https://example.com/avatar5.webp",
+    total_pts: 80,
+    role: "Batter",
+    batting_avg: 37.1,
+    strike_rate: 118.2,
+  },
+  {
+    playerKey: "6",
+    full_name: "David White",
+    profile_image: "https://example.com/avatar6.webp",
+    total_pts: 70,
+    role: "RR",
+    batting_avg: 41.3,
+    strike_rate: 130.0,
+  },
 ];
 
 const Bowler = ({}) => {
-    //   const rankWiseBatsmenList = useMemo(() => (
-    //     calCulatedRankPlayers(battingSideTokenWiseWithPointsList)
-    //   ), [battingSideTokenWiseWithPointsList]);
+  //   const rankWiseBatsmenList = useMemo(() => (
+  //     calCulatedRankPlayers(battingSideTokenWiseWithPointsList)
+  //   ), [battingSideTokenWiseWithPointsList]);
 
-   // const matchId = 18;
-    const { matchId } = useParams();
+  // const matchId = 18;
+  const { matchId } = useParams();
 
-    const [activeBatsmen, setActiveBatsmen] = useState(null);
-    const [activeBowler, setActiveBowler] = useState(null);
-    const [rankWiseBatsmenList, setRankWiseBatsmenList] = useState([]);
-    const [rankWiseBowlerList, setRankWiseBowlersList] = useState([]);
-    const [battinSideRank, setBattinSideRank] = useState([]);
-    const [bowlingSideRank, setBowlingSideRank] = useState([]);
-    console.log("activebat", activeBatsmen);
-    console.log("activebawl", activeBowler);
-    console.log("rankWiseBatsmenList", rankWiseBatsmenList);
-    console.log("rankWiseBowlerList", rankWiseBowlerList);
-    console.log("battinSideRank", battinSideRank);
-    console.log("bowlingSideRank", bowlingSideRank);
+  const [activeBatsmen, setActiveBatsmen] = useState(null);
+  const [activeBowler, setActiveBowler] = useState(null);
+  const [rankWiseBatsmenList, setRankWiseBatsmenList] = useState([]);
+  const [rankWiseBowlerList, setRankWiseBowlersList] = useState([]);
+  const [battinSideRank, setBattinSideRank] = useState([]);
+  const [bowlingSideRank, setBowlingSideRank] = useState([]);
+  console.log("activebat", activeBatsmen);
+  console.log("activebawl", activeBowler);
+  console.log("rankWiseBatsmenList", rankWiseBatsmenList);
+  console.log("rankWiseBowlerList", rankWiseBowlerList);
+  console.log("battinSideRank", battinSideRank);
+  console.log("bowlingSideRank", bowlingSideRank);
 
-    const {
-        data: liveScore,
-        isLoading: scoreLoading,
-        isError: scoreError,
-    } = useGetLiveScoreQuery(matchId, {
-        skip: !matchId,
-    });
-    const { data, isLoading, isError } = useViewerScoreCardQuery(matchId, {
-        skip: !matchId,
-    });
+  const {
+    data: liveScore,
+    isLoading: scoreLoading,
+    isError: scoreError,
+  } = useGetLiveScoreQuery(matchId, {
+    skip: !matchId,
+  });
+  const { data, isLoading, isError } = useViewerScoreCardQuery(matchId, {
+    skip: !matchId,
+  });
 
-    console.log("data..........", data);
-    console.log("data@@@@@@@@@@.", liveScore);
+  console.log("data..........", data);
+  console.log("data@@@@@@@@@@.", liveScore);
 
-    // Helper function for safe object property access
-    const getSafeValue = (obj, path, defaultValue = null) => {
-        return path
-            .split(".")
-            .reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : defaultValue), obj);
+  // Helper function for safe object property access
+  const getSafeValue = (obj, path, defaultValue = null) => {
+    return path
+      .split(".")
+      .reduce(
+        (acc, key) => (acc && acc[key] !== undefined ? acc[key] : defaultValue),
+        obj
+      );
+  };
+
+  const {
+    battingMatrix,
+    bowlerMatrix,
+    battingList,
+    bowlingList,
+    combinedMatrix,
+    fieldCoordinate,
+    totalOvers,
+  } = useMemo(() => {
+    if (!data) return {};
+
+    const batting_matrix = getSafeValue(data, "batting_matrix", []);
+    const bowler_matrix = getSafeValue(data, "bowling_matrix", []);
+    const batting_list = getSafeValue(data, "batsmen_list", []);
+    const bowling_list = getSafeValue(data, "bowler_list", []);
+    const field_coordinate = getSafeValue(data, "coordinate_list", []);
+    const combined_matrix = batting_matrix.concat(bowler_matrix);
+    const total_overs = batting_matrix[0]?.length
+      ? batting_matrix[0]?.length - 1
+      : 0;
+
+    return {
+      battingMatrix: batting_matrix,
+      bowlerMatrix: bowler_matrix,
+      battingList: batting_list,
+      bowlingList: bowling_list,
+      combinedMatrix: combined_matrix,
+      fieldCoordinate: field_coordinate,
+      totalOvers: total_overs,
     };
+  }, [data]);
 
-    const {
-        battingMatrix,
-        bowlerMatrix,
-        battingList,
-        bowlingList,
-        combinedMatrix,
-        fieldCoordinate,
-        totalOvers,
-    } = useMemo(() => {
-        if (!data) return {};
+  const bowEvent = liveScore?.ball_event || [];
+  const ovr = bowEvent[0] || 0;
+  //  (updateBall(bowEvent[1] || 0));
+  //  (updateEvtNo(bowEvent[2] || 0));
+  //  (updatePerBallAction(bowEvent[3] || 0));
+  //  (updatePlayersCurrentOvrPt(bowEvent[4] || 0));
 
-        const batting_matrix = getSafeValue(data, "batting_matrix", []);
-        const bowler_matrix = getSafeValue(data, "bowling_matrix", []);
-        const batting_list = getSafeValue(data, "batsmen_list", []);
-        const bowling_list = getSafeValue(data, "bowler_list", []);
-        const field_coordinate = getSafeValue(data, "coordinate_list", []);
-        const combined_matrix = batting_matrix.concat(bowler_matrix);
-        const total_overs = batting_matrix[0]?.length ? batting_matrix[0]?.length - 1 : 0;
+  const validOvr = Math.min(Math.max(ovr || 0, 0), totalOvers || 0);
 
-        return {
-            battingMatrix: batting_matrix,
-            bowlerMatrix: bowler_matrix,
-            battingList: batting_list,
-            bowlingList: bowling_list,
-            combinedMatrix: combined_matrix,
-            fieldCoordinate: field_coordinate,
-            totalOvers: total_overs,
-        };
-    }, [data]);
+  useEffect(() => {
+    if (!battingMatrix || !bowlerMatrix || validOvr == null) return;
 
-    const bowEvent = liveScore?.ball_event || [];
-    const ovr = bowEvent[0] || 0;
-    //  (updateBall(bowEvent[1] || 0));
-    //  (updateEvtNo(bowEvent[2] || 0));
-    //  (updatePerBallAction(bowEvent[3] || 0));
-    //  (updatePlayersCurrentOvrPt(bowEvent[4] || 0));
+    const ranks = calculatePlayerRolesFromMatrix({
+      battingMatrix,
+      bowlerMatrix,
+      battingList,
+      bowlingList,
+      over: validOvr,
+    });
 
-    const validOvr = Math.min(Math.max(ovr || 0, 0), totalOvers || 0);
+    setActiveBatsmen(ranks?.active_batsman || null);
+    setActiveBowler(ranks?.active_bowler || null);
+    setBattinSideRank(ranks?.battinSideRank || []);
+    setBowlingSideRank(ranks?.bowlingSideRank || []);
+  }, [validOvr, battingMatrix, bowlerMatrix, battingList, bowlingList]);
 
-    useEffect(() => {
-        if (!battingMatrix || !bowlerMatrix || validOvr == null) return;
+  // Live score processing
+  useEffect(() => {
+    if (!liveScore?.players || !battinSideRank || !bowlingSideRank) return;
 
-        const ranks = calculatePlayerRolesFromMatrix({
-            battingMatrix,
-            bowlerMatrix,
-            battingList,
-            bowlingList,
-            over: validOvr,
-        });
+    const battingStats = getSafeValue(liveScore, "players.batsmen", {});
+    const bowlingStats = getSafeValue(liveScore, "players.bowlers", {});
+    const bowEvent = getSafeValue(liveScore, "ball_event", []);
 
-        setActiveBatsmen(ranks?.active_batsman || null);
-        setActiveBowler(ranks?.active_bowler || null);
-        setBattinSideRank(ranks?.battinSideRank || []);
-        setBowlingSideRank(ranks?.bowlingSideRank || []);
-    }, [validOvr, battingMatrix, bowlerMatrix, battingList, bowlingList]);
+    // Process bowling side data
+    const bowlingSideMergeData = bowlingSideRank.map((player) => {
+      const key = player.playerKey;
+      const stats = bowlingStats[key] || {};
+      return {
+        ...player,
+        fld_pts: stats.fld_pts ?? 0,
+        role_pts: stats.role_pts ?? 0,
+        total_pts: stats.total_pts ?? 0,
+        ovr_evt_pts: stats.ovr_evt_pts ?? {},
+      };
+    });
 
-    // Live score processing
-    useEffect(() => {
-        if (!liveScore?.players || !battinSideRank || !bowlingSideRank) return;
+    // Process batting side data
+    const battingSideMergeData = battinSideRank.map((player) => {
+      const key = player.playerKey;
+      const stats = battingStats[key] || {};
+      return {
+        ...player,
+        fld_pts: stats.fld_pts ?? 0,
+        role_pts: stats.role_pts ?? 0,
+        total_pts: stats.total_pts ?? 0,
+        ovr_evt_pts: stats.ovr_evt_pts ?? {},
+      };
+    });
 
-        const battingStats = getSafeValue(liveScore, "players.batsmen", {});
-        const bowlingStats = getSafeValue(liveScore, "players.bowlers", {});
-        const bowEvent = getSafeValue(liveScore, "ball_event", []);
+    // Sort and update state
+    setRankWiseBowlersList(calCulatedRankPlayers(bowlingSideMergeData));
+    setRankWiseBatsmenList(calCulatedRankPlayers(battingSideMergeData));
+  }, [liveScore, battinSideRank, bowlingSideRank, totalOvers]);
 
-        // Process bowling side data
-        const bowlingSideMergeData = bowlingSideRank.map((player) => {
-            const key = player.playerKey;
-            const stats = bowlingStats[key] || {};
-            return {
-                ...player,
-                fld_pts: stats.fld_pts ?? 0,
-                role_pts: stats.role_pts ?? 0,
-                total_pts: stats.total_pts ?? 0,
-                ovr_evt_pts: stats.ovr_evt_pts ?? {},
-            };
-        });
+  return (
+    // <div className="min-h-screen   text-white p-6">
+    //     <div className="max-w-lg">
+    //         <RankList
+    //             playerList={rankWiseBatsmenList}
+    //             toggleOption={true}
+    //             title="Rank wise batters"
+    //             RoleIcon={BatSvg}
+    //         />
+    //     </div>
+    // </div>
 
-        // Process batting side data
-        const battingSideMergeData = battinSideRank.map((player) => {
-            const key = player.playerKey;
-            const stats = battingStats[key] || {};
-            return {
-                ...player,
-                fld_pts: stats.fld_pts ?? 0,
-                role_pts: stats.role_pts ?? 0,
-                total_pts: stats.total_pts ?? 0,
-                ovr_evt_pts: stats.ovr_evt_pts ?? {},
-            };
-        });
+    //     <div className="min-h-screen flex justify-end text-white p-6">
+    //     <div className="w-[500px]">
+    //       <RankList
+    //         playerList={dummyList}
+    //         toggleOption={true}
+    //         title="Rank wise batters"
+    //         RoleIcon={BatSvg}
+    //       />
+    //     </div>
+    //   </div>
 
-        // Sort and update state
-        setRankWiseBowlersList(calCulatedRankPlayers(bowlingSideMergeData));
-        setRankWiseBatsmenList(calCulatedRankPlayers(battingSideMergeData));
-    }, [liveScore, battinSideRank, bowlingSideRank, totalOvers]);
-
-    return (
-        // <div className="min-h-screen   text-white p-6">
-        //     <div className="max-w-lg">
-        //         <RankList
-        //             playerList={rankWiseBatsmenList}
-        //             toggleOption={true}
-        //             title="Rank wise batters"
-        //             RoleIcon={BatSvg}
-        //         />
-        //     </div>
-        // </div>
-
-        //     <div className="min-h-screen flex justify-end text-white p-6">
-        //     <div className="w-[500px]">
-        //       <RankList
-        //         playerList={dummyList}
-        //         toggleOption={true}
-        //         title="Rank wise batters"
-        //         RoleIcon={BatSvg}
-        //       />
-        //     </div>
-        //   </div>
-
-
-
-
-        <div className="min-h-screen flex justify-end text-white p-6 pt-20">
-            <div className="max-w-lg w-full">
-                <RankList
-                    playerList={rankWiseBowlerList}
-                    toggleOption={true}
-                    title="Rank wise batters list"
-                    RoleIcon={BatSvg}
-                    roleHeader={'Bowler'}
-                />
-            </div>
-        </div>
-
-        
-    );
+    <div className=" text-white p-6 pt-20">
+      <div className="max-w-lg w-full">
+        <RankList
+          playerList={rankWiseBowlerList}
+          toggleOption={true}
+          title="Rank wise batters list"
+          RoleIcon={BatSvg}
+          roleHeader={"Bowler"}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Bowler;

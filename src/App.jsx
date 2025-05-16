@@ -1,41 +1,38 @@
 import React from "react";
 import ScoreBar from "./screens/ScoreBar";
 import Positions from "./screens/Positions";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { HashRouter } from "react-router-dom";
- 
-
-
-import { BrowserRouter, Router, Route, Routes } from "react-router-dom";
-
-import "./index.css";
 import Bowler from "./screens/Bowler";
+import Controller from "./screens/Controller";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
+import Layout from "./components/layout/ Layout";
 
 const App = () => {
-    return (
-      <HashRouter>
-      <Routes>
-        <Route path="/scorebar/:matchId" element={<ScoreBar/>}/>
-        <Route path="/player/:matchId" element={<Positions/>}/>
-        <Route path="/bowler/:matchId" element={<Bowler/>}/>
+  console.log("App component rendering");
 
+  return (
+    <div className="min-h-screen bg-transparent">
+      <BrowserRouter>
+        {/* Always show the Controller at the top of every page */}
 
-      </Routes>
-      </HashRouter>
-
-
-
-
-        // <div className="position-relative">
-        //      <div className="position-fixed top-0 end-40 mt-3   ">
-        //         <Positions />
-        //     </div>
-
-        //      <div className="position-fixed bottom-0 start-0 end-0">
-        //         <ScoreBar />
-        //     </div>
-        // </div>
-    );
+        <Routes>
+          <Route path="/Piplon-overlay/controller" element={<Layout />} />
+          <Route path="/Piplon-overlay/scorebar" element={<ScoreBar />} />
+          <Route
+            path="/Piplon-overlay/scorebar/:matchId"
+            element={<ScoreBar />}
+          />
+          <Route
+            path="/Piplon-overlay/player/:matchId"
+            element={<Positions />}
+          />
+          <Route path="/Piplon-overlay/bowler/:matchId" element={<Bowler />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 };
 
 export default App;

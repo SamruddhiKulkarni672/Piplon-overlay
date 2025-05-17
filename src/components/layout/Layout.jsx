@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout as AntLayout } from "antd";
 
-import Sidebar from "./ Sidebar";
+import Sidebar from "./Sidebar";
 import AppHeader from "./Header";
 import Controller from "../../screens/Controller";
 

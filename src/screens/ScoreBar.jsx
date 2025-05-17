@@ -18,6 +18,7 @@ import "../assets/animation.css";
 import FourAnimation from "./FourAnimation.jsx";
 import SixAnimation from "./SixAnimation.jsx";
 import { useSelector } from "react-redux";
+import Profile from "./Profile.jsx";
 
 // const balls = [
 //   { label: "1", color: "bg-[#2E2A45]" },
@@ -46,6 +47,9 @@ const ScoreBar = () => {
   const [six, setSix] = useState(
     JSON.parse(localStorage.getItem("sixAnimation")) || false
   );
+   const [showProfile, setShowProfile] = useState(
+    JSON.parse(localStorage.getItem("showProfile")) || false
+  );
 
   // Inside ScoreBar Component
 
@@ -62,6 +66,9 @@ const ScoreBar = () => {
       }
       if (event.key === "sixAnimation") {
         setSix(JSON.parse(event.newValue));
+      }
+      if (event.key === "showProfile") {
+        setShowProfile(JSON.parse(event.newValue));
       }
     };
 
@@ -282,6 +289,18 @@ const ScoreBar = () => {
           >
             {showBowler && <Bowler />}
           </div>
+
+            <div
+            className={`transition-container ${
+               showProfile ? "fade-in" : "fade-out"
+            }`}
+          >
+            {showProfile && <Profile />}
+          </div>
+
+          
+
+
         </div>
       </div>
 

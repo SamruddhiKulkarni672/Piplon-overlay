@@ -1,6 +1,8 @@
 import React from "react";
 import Lottie from "lottie-react";
-import animationData from "/Users/ishwarmundhe/Desktop/Piplon-overlay/src/assets/Animation/SixAnimation.json";
+// import animationData from "/Users/ishwarmundhe/Desktop/Piplon-overlay/src/assets/Animation/SixAnimation.json";
+import animationData from "../assets/Animation/SixAnimation.json";
+
 
 const SixAnimation = () => {
   return (

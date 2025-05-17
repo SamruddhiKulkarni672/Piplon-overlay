@@ -1,6 +1,6 @@
 import React from "react";
 import Lottie from "lottie-react";
-import animationData from "/Users/ishwarmundhe/Desktop/Piplon-overlay/src/assets/Animation/FourAnimation.json";
+import animationData from "../assets/Animation/FourAnimation.json";
 
 const FourAnimation = () => {
   return (

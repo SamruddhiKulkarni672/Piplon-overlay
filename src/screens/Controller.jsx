@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleRank, toggleBowler, four, six } from "../store/store";
+import { toggleRank, toggleBowler, four, six  ,displayProfile} from "../store/store";
 
 function Controller() {
   const showRank = useSelector((state) => state.controller.showRank);
   const showBowler = useSelector((state) => state.controller.showBowler);
+  const showProfile = useSelector((state) => state.controller.showProfile);
+
 
   const dispatch = useDispatch();
 
@@ -12,6 +14,14 @@ function Controller() {
     <>
       <div className="bg-gray-300 p-20 rounded-2">
         <div className="flex flex-col gap-3 w-1/4 bg-transparent mx-10 m-10 ">
+
+        <button
+            className="border rounded-3 p-2  bg-[#001529] text-white"
+            onClick={() => dispatch(displayProfile())}
+          >
+            {showProfile ? "Hide player Profile" : "Show player Profile"}
+          </button>
+          
           <button
             className="border rounded-3 p-2  bg-[#001529] text-white"
             onClick={() => dispatch(toggleRank())}

@@ -7,7 +7,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import Layout from "./components/layout/ Layout";
+import Layout from "./components/layout/Layout";
+import Profile from "./screens/Profile";
+import LiveMatchStatus from "./screens/LiveMatchStatus";
 
 const App = () => {
   console.log("App component rendering");
@@ -29,6 +31,14 @@ const App = () => {
             element={<Positions />}
           />
           <Route path="/Piplon-overlay/bowler/:matchId" element={<Bowler />} />
+          <Route
+            path="/Piplon-overlay/profile"
+            element={<Profile />}
+          />
+          <Route
+            path="/Piplon-overlay/livematch-status"
+            element={< LiveMatchStatus />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

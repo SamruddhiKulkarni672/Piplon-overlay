@@ -10,6 +10,7 @@ import "./index.css";
 import Layout from "./components/layout/Layout";
 import Profile from "./screens/Profile";
 import LiveMatchStatus from "./screens/LiveMatchStatus";
+import TournamentFour from "./screens/tournamentFour";
 
 const App = () => {
   console.log("App component rendering");
@@ -38,6 +39,10 @@ const App = () => {
           <Route
             path="/Piplon-overlay/livematch-status"
             element={< LiveMatchStatus />}
+          />
+          <Route
+            path="/Piplon-overlay/tournament-four"
+            element={<TournamentFour/>}
           />
         </Routes>
       </BrowserRouter>

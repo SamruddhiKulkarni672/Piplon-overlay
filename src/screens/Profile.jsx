@@ -1,24 +1,24 @@
 import React from "react";
 import photo from "../assets/pimg.png";
 import profile from "../assets/profilebg.png";
-import bg from "../assets/pImgbg1.jpg";  
+import bg from "../assets/groundbg.jpg";  
 
 function Profile() {
     return (
         <div
             className="min-h-screen w-full bg-cover bg-center bg-no-repeat"
-            // style={{ backgroundImage: `url(${bg})` }}
+             style={{ backgroundImage: `url(${bg})` }}
         >
-            <div className="relative w-[800px] h-[800px] mr-[100px] mt-[30px]">
-                <img
+            <div className="relative w-[900px]   h-[900px] mr-[100px] mt-[0px]">
+                {/* <img
                     src={profile}
                     className="absolute top-0 left-[80px] w-full h-full object-cover"
                     alt="Profile Background"
-                />
+                /> */}
 
                 <img
                     src={photo}
-                    className="relative top-0 left-[80px] w-full h-full object-cover"
+                    className="relative top-0 left-[150px] w-full h-full object-cover"
                     alt="Profile"
                 />
 
@@ -35,7 +35,7 @@ function Profile() {
                         ].map((item, index) => (
                             <div
                                 key={index}
-                                className="flex justify-between h-14 items-center bg-[#231d3a] text-white font-bold text-lg px-4 py-2 rounded-lg shadow transition"
+                                className="flex justify-between h-14 items-center bg-[#0C0A15]  border-4 border-gray-400 text-white font-bold text-lg px-4 py-2 rounded-lg shadow transition"
                             >
                                 <span>{item.game}</span>
                                 <span>{item.score}</span>
